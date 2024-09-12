@@ -1,9 +1,13 @@
 package com.enigmacamp.wmb.service.impl;
 
+import com.enigmacamp.wmb.dto.request.PagingCustomerRequest;
 import com.enigmacamp.wmb.entity.Customer;
 import com.enigmacamp.wmb.repository.CustomerRepository;
 import com.enigmacamp.wmb.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
         return findByIdOrThrowNotFound(id);
     }
 
-    public List<Customer> getAll(){
-        return customerRepository.findAll();
+    public Page<Customer> getAll(PagingCustomerRequest request){
+        Pageable pageable = PageRequest.of(request.getPage()-1, request.getSize());
+        return customerRepository.findAll(pageable);
+
     }
 
     public Customer update(Customer customer){

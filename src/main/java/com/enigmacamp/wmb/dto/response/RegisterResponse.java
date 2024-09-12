@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MenuResponse {
-    private String menuId;
-    private String name;
-    private Long price;
+public class RegisterResponse {
+
+    private String username;
+    private String role;
 }

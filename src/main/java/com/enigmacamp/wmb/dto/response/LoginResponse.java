@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MenuResponse {
-    private String menuId;
-    private String name;
-    private Long price;
+public class LoginResponse {
+    private String token;
+    private String role;
 }

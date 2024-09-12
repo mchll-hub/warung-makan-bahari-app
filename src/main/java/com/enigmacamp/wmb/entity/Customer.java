@@ -17,12 +17,15 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name")
     private String fullName;
-    @Column(name = "phone_number", nullable = false, unique = true)
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
-    @Column(name = "is_member", nullable = false)
-    private Boolean isMember;
+    @Column(name = "is_member")
+    private Boolean isMember = false;
+    @OneToOne
+    @JoinColumn(name = "m_user_credential_id")
+    private UserCredential userCredential;
 
 }
 
