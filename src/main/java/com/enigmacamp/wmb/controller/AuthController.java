@@ -8,6 +8,7 @@ import com.enigmacamp.wmb.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,22 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register/customer")
-    public ResponseEntity<?> register(@RequestBody AuthRequest request){
+    public ResponseEntity<?> registerCustomer(@RequestBody AuthRequest request){
         RegisterResponse registerResponse = authService.registerCustomer(request);
+        CommonResponse<RegisterResponse> response = CommonResponse.<RegisterResponse>builder()
+                .message("succesfully register new customer")
+                .statusCode((HttpStatus.CREATED.value()))
+                .data(registerResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
+    }
+
+    @PostMapping("/register/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> registerAdmin(@RequestBody AuthRequest request){
+        RegisterResponse registerResponse = authService.registerAdmin(request);
         CommonResponse<RegisterResponse> response = CommonResponse.<RegisterResponse>builder()
                 .message("succesfully register new customer")
                 .statusCode((HttpStatus.CREATED.value()))

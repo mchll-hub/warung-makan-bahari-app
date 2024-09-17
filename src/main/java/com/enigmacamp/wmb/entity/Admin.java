@@ -13,15 +13,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "m_admin")
-public class Admin {
+public class Admin{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column
     private String name;
-    @Column
-    private String phoneNumber;
     @OneToOne
     @JoinColumn(name = "m_user_credential_id")
     private UserCredential userCredential;

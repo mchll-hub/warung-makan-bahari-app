@@ -1,9 +1,11 @@
 package com.enigmacamp.wmb.controller;
 
+import com.enigmacamp.wmb.dto.request.NewCustomerRequest;
 import com.enigmacamp.wmb.dto.request.PagingCustomerRequest;
+import com.enigmacamp.wmb.dto.request.UpdateCustomerRequest;
 import com.enigmacamp.wmb.dto.response.CommonResponse;
+import com.enigmacamp.wmb.dto.response.CustomerResponse;
 import com.enigmacamp.wmb.dto.response.PagingResponse;
-import com.enigmacamp.wmb.entity.Customer;
 import com.enigmacamp.wmb.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,15 +23,32 @@ public class CustomerController {
     private final CustomerService customerService;
 
     //create new customer
-    @PostMapping()
-    public Customer createNewCustomer(@RequestBody Customer customer){
-        return customerService.createNew(customer);
+    @PostMapping
+    public ResponseEntity<?> createNewCustomer(@RequestBody NewCustomerRequest request) {
+        CustomerResponse customerResponse = customerService.createNew(request);
+        CommonResponse<CustomerResponse> response = CommonResponse.<CustomerResponse>builder()
+                .message("successfully create new customer")
+                .statusCode(HttpStatus.CREATED.value())
+                .data(customerResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
+
 
     //get by id
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable String id){
-        return customerService.getById(id);
+    public ResponseEntity<?> getCustomerById(@PathVariable String id) {
+        CustomerResponse customerResponse = customerService.getOne(id);
+        CommonResponse<CustomerResponse> response = CommonResponse.<CustomerResponse>builder()
+                .message("successfully get customer by id")
+                .statusCode(HttpStatus.OK.value())
+                .data(customerResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
     //get all
@@ -42,7 +61,7 @@ public class CustomerController {
                 .page(page)
                 .size(size)
                 .build();
-        Page<Customer> customers = customerService.getAll(request);
+        Page<CustomerResponse> customers = customerService.getAll(request);
 
         PagingResponse pagingResponse = PagingResponse.builder()
                 .page(page)
@@ -51,7 +70,7 @@ public class CustomerController {
                 .totalPages(customers.getTotalPages())
                 .build();
 
-        CommonResponse<List<Customer>> response = CommonResponse.<List<Customer>>builder()
+        CommonResponse<List<CustomerResponse>> response = CommonResponse.<List<CustomerResponse>>builder()
                 .message("Succesfully get all customer")
                 .statusCode(HttpStatus.OK.value())
                 .data(customers.getContent())
@@ -64,15 +83,33 @@ public class CustomerController {
     }
 
     //update
-    @PutMapping()
-    public Customer updateCustomer(@RequestBody Customer customer){
-        return customerService.update(customer);
+    @PutMapping
+    public ResponseEntity<?> updateCustomer(@RequestBody UpdateCustomerRequest request) {
+        CustomerResponse customerResponse = customerService.update(request);
+        CommonResponse<CustomerResponse> response = CommonResponse.<CustomerResponse>builder()
+                .message("successfully update customer")
+                .statusCode(HttpStatus.OK.value())
+                .data(customerResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
+
 
     //delete
     @DeleteMapping("/{id}")
-    public void deleteCustomerById(@PathVariable String id){
+    public ResponseEntity<?> deleteCustomerById(@PathVariable String id) {
         customerService.deleteById(id);
+        CommonResponse<?> response = CommonResponse.builder()
+                .message("successfully update customer")
+                .statusCode(HttpStatus.OK.value())
+                .data("OK")
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
+
 
 }

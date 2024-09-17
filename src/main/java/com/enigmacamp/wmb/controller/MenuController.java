@@ -8,6 +8,7 @@ import com.enigmacamp.wmb.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class MenuController {
 
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createMenu(@RequestBody NewMenuRequest request) {
         MenuResponse menuResponse = menuService.createNewMenu(request);
         CommonResponse<MenuResponse> response = CommonResponse.<MenuResponse>builder()

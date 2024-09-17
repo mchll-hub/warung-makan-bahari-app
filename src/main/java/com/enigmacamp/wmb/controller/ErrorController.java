@@ -27,7 +27,8 @@ public class ErrorController {
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
                 .build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 }
