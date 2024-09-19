@@ -34,11 +34,11 @@ public class AuthController {
     }
 
     @PostMapping("/register/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> registerAdmin(@RequestBody AuthRequest request){
         RegisterResponse registerResponse = authService.registerAdmin(request);
         CommonResponse<RegisterResponse> response = CommonResponse.<RegisterResponse>builder()
-                .message("succesfully register new customer")
+                .message("succesfully register new admin")
                 .statusCode((HttpStatus.CREATED.value()))
                 .data(registerResponse)
                 .build();

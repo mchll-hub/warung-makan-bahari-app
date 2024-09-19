@@ -7,22 +7,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "m_menu")
-@Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Menu {
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "m_menu_image")
+public class MenuImage {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column
     private String name;
-    @Column(columnDefinition = "BIGINT CHECK (price >= 0)")
-    private Long price;
+    private String contentType;
+    private String path;
+    private Long size;
 
-    @OneToOne
-    @JoinColumn(name = "m_menu_image_id", unique = true)
-    private MenuImage menuImage;
 }

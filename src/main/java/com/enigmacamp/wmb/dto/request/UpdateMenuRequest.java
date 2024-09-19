@@ -7,19 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NewMenuRequest {
+public class UpdateMenuRequest {
+    @NotBlank(message = "id is required")
+    private String id;
     @NotBlank(message = "name is required")
     private String name;
-
-    @NotNull
-    @Min(value = 0, message = "price must be greater than or equal to zero")
+    @NotNull(message = "price is required")
+    @Min(value = 0, message = "price is invalid")
     private Long price;
-
-    private MultipartFile multipartFile;
 }
+

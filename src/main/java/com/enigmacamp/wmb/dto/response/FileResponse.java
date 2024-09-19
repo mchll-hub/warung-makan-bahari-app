@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MenuResponse {
-    private String menuId;
-    private String name;
-    private Long price;
-    private FileResponse image;
+public class FileResponse {
+
+    private String fileName;
+    private String url;
 }

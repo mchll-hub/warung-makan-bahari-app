@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AuthRequest {
     @NotBlank(message = "username is required")
-    @Pattern(regexp = "[]]", message = "Invalid username")
+//    @Pattern(regexp = "[]]", message = "Invalid username")
     private String username;
     @NotBlank(message = "password is required")
     private String password;
