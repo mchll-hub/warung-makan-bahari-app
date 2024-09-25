@@ -1,4 +1,5 @@
-Warung Makan Bahari API
+**Warung Makan Bahari API**
+
 This is a Java-based REST API built with Spring Boot to manage the operations of Warung Makan Bahari. The system is designed to handle business logic, customer management, and order processing with a clear separation of concerns across different layers like controllers, services, and repositories.
 
 The application includes:
